@@ -11,3 +11,7 @@ export const getStudentByIdNumber = async (idNumber: string) => {
 export const getStudentByName = async (name: string) => {
     return await StudentModel.findOne({ name });
 }
+
+export const getStudentsByClassName = async (className: string) => {
+  return await StudentModel.find({ className });
+};

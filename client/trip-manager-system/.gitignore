@@ -1,29 +1,3 @@
-# dependencies
-node_modules/
-
-# environment variables
-.env*
-
-# build output
-dist/
-build/
-
-# logs
-logs/
-*.log
-npm-debug.log*
-
-# OS
-.DS_Store
-Thumbs.db
-
-# editor
-.vscode/
-.idea/
-
-# TypeScript
-*.tsbuildinfo
-
 # Logs
 logs
 *.log
@@ -48,6 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-coverage/
-.vite/

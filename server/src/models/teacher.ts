@@ -1,9 +1,9 @@
 import mongoose, {Schema, Document} from "mongoose";
 
 export interface ITeacher extends Document {
-    name: String;
-    idNumber: String;
-    className: String;
+    name: string;
+    idNumber: string;
+    className: string;
 }
 
 const teacherSchema = new Schema<ITeacher>(
