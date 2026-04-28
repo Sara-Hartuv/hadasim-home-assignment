@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import {connectDB} from "./db/connectDB";
 import studentRoutes from "./routes/studentRoutes";
 import teacherRoutes from "./routes/teacherRoutes";
+import authRotes from "./routes/authRoutes";
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/students", studentRoutes);
 app.use("/teachers", teacherRoutes)
+app.use("/auth", authRotes);
+
 
 app.get("/", (req, res) => {
   res.send("Server is running");
