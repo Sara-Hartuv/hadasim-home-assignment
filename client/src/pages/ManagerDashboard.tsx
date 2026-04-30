@@ -12,6 +12,9 @@ import type { Student } from "../types/student";
 import StudentSearch from "../components/StudentSearch";
 import StudentList from "../components/StudentList";
 import AddStudentForm from "../components/AddStudentForm";
+import DashboardLayout from "../components/DashcoardLayout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ManagerDashboard = () => {
     const {logout} = useAuth();
@@ -95,40 +98,114 @@ const ManagerDashboard = () => {
 
 
     return (
-        <div dir="rtl" style={{padding:"20px"}}>
-            <h1>דשבורד מנהל</h1>
-            <button onClick={handleLogout}>התנתקות</button>
-            <div>
-                <button onClick={() => setActiveView("teachers")}>מורות</button>
-                <button onClick={() => setActiveView("students")}>תלמידות</button>
+        <DashboardLayout
+        title="דשבורד מנהל"
+        subtitle="ניהול מורות ותלמידות במערכת"
+        onLogout={handleLogout}
+        sidebarItems={[
+        {
+            label: "מורות",
+            isActive: activeView === "teachers",
+            onClick: () => setActiveView("teachers"),
+        },
+        {
+            label: "תלמידות",
+            isActive: activeView === "students",
+            onClick: () => setActiveView("students"),
+        },
+        ]}
+    >
+        <div className="space-y-6">
+        {activeView === "teachers" && (
+            <>
+            <div className="flex items-center justify-between">
+                <div>
+                <h2 className="text-xl font-semibold">רשימת מורות</h2>
+                <p className="text-sm text-slate-500">חיפוש והוספת מורות למערכת</p>
+                </div>
+
+                <Button
+                className="bg-red-600 text-white hover:bg-red-700"
+                onClick={() => setIsAddTeacherOpen(true)}
+                >
+                הוספת מורה
+                </Button>
             </div>
-            {activeView === "teachers"&& (
-                <>
-                    <button onClick={() => setIsAddTeacherOpen(true)}>
-                     הוספת מורה
-                    </button>
-                    <Modal isOpen={isAddTeacherOpen} title="הוספת מורה" onClose={() => setIsAddTeacherOpen(false)}>
-                        <AddTeacherForm onTeacherAdded={loadTeachers} onClose={() => setIsAddTeacherOpen(false)}/>
-                    </Modal>
-                    <TeacherSearch searchName={searchName} onSearchNameChange={setSearchName}/>
-                    {!isLoading && <TeacherList teachers={teachers}/>}
-                </>
-            )}
-            {activeView === "students" && (
-                <>
-                    <button onClick={() => setIsAddStudentOpen(true)}>הוספת תלמידה</button>
-                    <Modal isOpen={isAddStudentOpen} title="הוספת תלמידה" onClose={() => setIsAddStudentOpen(false)}>
-                        <AddStudentForm onStudentAdded={loadStudents} onClose={() => setIsAddStudentOpen(false)}/>
-                    </Modal>
-                    <h2>חיפוש תלמידה</h2>
-                    <StudentSearch searchName={studentSearchName} onSearchNameChange={setStudentSearchName}/>
-                    {!isLoading && <StudentList students={students}/>}
-                </>
-            )}
-            {isLoading && <p>טוען...</p>}
-            {error && <p style={{color: "red"}}>{error}</p>}
+
+            <Modal
+                isOpen={isAddTeacherOpen}
+                title="הוספת מורה"
+                onClose={() => setIsAddTeacherOpen(false)}
+            >
+                <AddTeacherForm
+                onTeacherAdded={loadTeachers}
+                onClose={() => setIsAddTeacherOpen(false)}
+                />
+            </Modal>
+
+            <Card className="border-slate-200 bg-white shadow-sm">
+                <CardHeader>
+                <CardTitle>חיפוש מורה</CardTitle>
+                </CardHeader>
+                <CardContent>
+                <TeacherSearch
+                    searchName={searchName}
+                    onSearchNameChange={setSearchName}
+                />
+                </CardContent>
+            </Card>
+
+            {!isLoading && <TeacherList teachers={teachers} />}
+            </>
+        )}
+
+        {activeView === "students" && (
+            <>
+            <div className="flex items-center justify-between">
+                <div>
+                <h2 className="text-xl font-semibold">רשימת תלמידות</h2>
+                <p className="text-sm text-slate-500">חיפוש והוספת תלמידות למערכת</p>
+                </div>
+
+                <Button
+                className="bg-red-600 text-white hover:bg-red-700"
+                onClick={() => setIsAddStudentOpen(true)}
+                >
+                הוספת תלמידה
+                </Button>
+            </div>
+
+            <Modal
+                isOpen={isAddStudentOpen}
+                title="הוספת תלמידה"
+                onClose={() => setIsAddStudentOpen(false)}
+            >
+                <AddStudentForm
+                onStudentAdded={loadStudents}
+                onClose={() => setIsAddStudentOpen(false)}
+                />
+            </Modal>
+
+            <Card className="border-slate-200 bg-white shadow-sm">
+                <CardHeader>
+                <CardTitle>חיפוש תלמידה</CardTitle>
+                </CardHeader>
+                <CardContent>
+                <StudentSearch
+                    searchName={studentSearchName}
+                    onSearchNameChange={setStudentSearchName}
+                />
+                </CardContent>
+            </Card>
+
+            {!isLoading && <StudentList students={students} />}
+            </>
+        )}
+
+        {isLoading && <p>טוען...</p>}
+        {error && <p className="text-red-600">{error}</p>}
         </div>
+    </DashboardLayout>
     );
 };
-
 export default ManagerDashboard;

@@ -121,10 +121,10 @@ const TeacherDashboard = () => {
                         </p>
                     </div>
                     <div className="flex gap-2">
-                        <Button onClick={() => setIsMapOpen(true)}>
+                        <Button className="bg-cyan-600 text-white hover:bg-cyan-700" onClick={() => setIsMapOpen(true)}>
                         צפייה במפה
                         </Button>
-                        <Button onClick={() => setIsAddStudentOpen(true)}>
+                        <Button className="bg-red-600 text-white hover:bg-red-700" onClick={() => setIsAddStudentOpen(true)}>
                         הוספת תלמידה
                         </Button>
                     </div>
@@ -135,7 +135,7 @@ const TeacherDashboard = () => {
                 <Modal isOpen={isMapOpen} title="מפת מיקומי התלמידות" onClose={() => setIsMapOpen(false)}>
                     <MapView locations={locations}/>
                 </Modal>
-                <Card>
+                <Card className="border-slate-200 bg-white shadow-sm">
                     <CardHeader>
                         <CardTitle>חיפוש תלמידה</CardTitle>
                     </CardHeader>

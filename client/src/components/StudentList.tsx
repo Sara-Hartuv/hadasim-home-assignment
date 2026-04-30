@@ -17,19 +17,19 @@ const StudentList = ({students}: StudentListProps) => {
         );
     }
     return(
-        <Card className="mt-4 overflow-hidden">
+        <Card className="mt-4 overflow-hidden border-slate-200 bg-white shadow-sm">
             <CardContent className="p-0">
                 <Table dir="rtl">
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="text-right">שם תלמידה</TableHead>
-                            <TableHead className="text-right">כיתה</TableHead>
+                            <TableHead className="text-right text-slate-950">שם תלמידה</TableHead>
+                            <TableHead className="text-right text-slate-950">כיתה</TableHead>
                         </TableRow>
                     </TableHeader>
 
                     <TableBody>
                         {students.map((student) => (
-                            <TableRow key={student._id}>
+                            <TableRow key={student._id} className="hover:bg-slate-50">
                                 <TableCell className="font-medium">{student.name}</TableCell>
                                 <TableCell>{student.className}</TableCell>
                             </TableRow>
