@@ -6,7 +6,7 @@ export const managerLogin = async ( username: string, password: string): Promise
     return response.data;
 }
 
-export const teacherLogin = async (idNumber: string, name: string): Promise<LoginResponse> => {
-    const response = await api.post<LoginResponse>("/auth/teacher-login", {idNumber, name,});
+export const teacherLogin = async (username: string, password: string): Promise<LoginResponse> => {
+    const response = await api.post<LoginResponse>("/auth/teacher-login", {username, password,});
     return response.data
 }

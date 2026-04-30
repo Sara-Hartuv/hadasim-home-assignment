@@ -5,7 +5,8 @@ import type { UserRole } from "../types/auth";
 interface AuthContextType {
     token: string | null;
     role: UserRole | null;
-    login: (token: string, role: UserRole) => void;
+    idNumber: string | null;
+    login: (token: string, role: UserRole, idNumber?: string) => void;
     logout: () => void;
 }
 
@@ -22,10 +23,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [role, setRole] = useState<UserRole | null>(() => {
         return localStorage.getItem("role") as UserRole | null;
     });
+    const [idNumber, setIdNumber] = useState<string | null>(() => {
+        return localStorage.getItem("idNumber");
+    })
 
-    const login = (token: string, role: UserRole) => {
+    const login = (token: string, role: UserRole, idNumber?: string) => {
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
+
+        if (idNumber){
+            localStorage.setItem("idNumber", idNumber);
+            setIdNumber(idNumber);
+        }
 
         setToken(token);
         setRole(role);
@@ -34,12 +43,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
+        localStorage.removeItem("idNumber");
 
         setToken(null);
         setRole(null);
+        setIdNumber(null);
     };
     return(
-        <AuthContext.Provider value={{token, role, login, logout}}>
+        <AuthContext.Provider value={{token, role, idNumber, login, logout}}>
             {children}
         </AuthContext.Provider>
     );
@@ -51,4 +62,4 @@ export const useAuth = () => {
         throw new Error("useAuth must be used inside AuthProvider");
     }
     return context;
-}
+};

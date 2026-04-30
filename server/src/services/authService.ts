@@ -20,12 +20,12 @@ export const loginManager = (username: string, password: string) => {
     };
 
     const token = createToken(user);
-    return {token, user};
+    return {token, role: user.role};
 };
 
-export const loginTeacher = async (name: string, idNumber: string) =>{
-    const teacher = await teacherRepository.getTeacherByIdNumber(idNumber);
-    if (!teacher || teacher.name != name){
+export const loginTeacher = async (username: string, password: string) =>{
+    const teacher = await teacherRepository.getTeacherByIdNumber(password);
+    if (!teacher || teacher.name != username){
         throw new Error("Invalid teacher credentials");
     }
 
@@ -36,6 +36,6 @@ export const loginTeacher = async (name: string, idNumber: string) =>{
     }
 
     const token = createToken(user);
-    return {token, user};
+    return {token, role: user.role, idNumber: user.idNumber,};
 
 };

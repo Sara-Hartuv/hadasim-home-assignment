@@ -9,5 +9,10 @@ export const getTeacherByIdNumber = async (idNumber: string) => {
 };
 
 export const getTeacherByName = async (name: string) => {
-  return await TeacherModel.findOne({ name });
+  const safeName = name.trim();
+  return await TeacherModel.find({ name: { $regex: safeName, $options: "i" }, });
+};
+
+export const getAllTeachers = async () => {
+  return TeacherModel.find();
 };

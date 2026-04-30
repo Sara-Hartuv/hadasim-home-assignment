@@ -44,3 +44,10 @@ export const getStudentsByTeacherId = async (idNumber: string) => {
     return students;
 };
 
+export const getAllTeachers = async () => {
+    const teachers = teacherRepository.getAllTeachers();
+    if (!teachers){
+        throw new Error("Teachers not found");
+    }
+    return teachers;
+};

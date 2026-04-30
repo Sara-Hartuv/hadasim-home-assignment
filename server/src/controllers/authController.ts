@@ -3,8 +3,8 @@ import * as authService from "../services/authService";
 
 export const loginManager = (req: Request, res: Response) =>{
     try{
-        const {userName, password} = req.body;
-        const result = authService.loginManager(userName, password);
+        const {username, password} = req.body;
+        const result = authService.loginManager(username, password);
         return res.status(200).json(result);
     } catch (error: any) {
         return res.status(401).json({message: error.message})
@@ -13,8 +13,8 @@ export const loginManager = (req: Request, res: Response) =>{
 
 export const loginTeacher = async (req:Request, res: Response) => {
     try{
-        const {userName, password} = req.body;
-        const result = await authService.loginTeacher(userName, password);
+        const {username, password} = req.body;
+        const result = await authService.loginTeacher(username, password);
         return res.status(200).json(result);
     } catch (error: any){
         return res.status(401).json({message: error.message});

@@ -18,6 +18,11 @@ export const createTeacher = async (teacher: Omit<Teacher, "_id">): Promise<Teac
 };
 
 export const getTeacherStudents = async (idNumber: string): Promise<Student[]> => {
-    const response = await api.get<Student[]>(`/teacher/${idNumber}/students`);
+    const response = await api.get<Student[]>(`/teachers/${idNumber}/students`);
+    return response.data;
+};
+
+export const getAllTeachers = async (): Promise<Teacher[]> => {
+    const response = await api.get<Teacher[]>("/teachers");
     return response.data;
 };

@@ -2,7 +2,6 @@ import * as studentRepository from "../repositories/studentRepository";
 import { IStudent } from "../models/student";
 
 export const createStudent = async(data:Partial<IStudent>) => {
-    // Here in the future, business logic is possible
     const existingStudent = await studentRepository.getStudentByIdNumber(data.idNumber!);
 
     if (existingStudent) {
@@ -20,12 +19,20 @@ export const getStudentByIdNumber = async (idNumber: string) => {
     return student;
 };
 
-export const getStusentByName = async (name: string) => {
+export const getStudentByName = async (name: string) => {
     const student = await studentRepository.getStudentByName(name);
 
     if (!student){
         throw new Error ("Student not found");
     }
 
+    return student;
+};
+
+export const getStudentByNameAndClass = async (name: string, className: string) => {
+    const student = studentRepository.getStudentByNameAndClass(name, className);
+    if (!student){
+        throw new Error("Student not found");
+    }
     return student;
 };

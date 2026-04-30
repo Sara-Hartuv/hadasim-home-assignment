@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as studentService from "../services/studentService";
+import strict from "node:assert/strict";
 
 export const createStudent = async (req: Request, res: Response) => {
     try{
@@ -26,10 +27,26 @@ export const getStudentByIdNumber = async (req: Request, res: Response) => {
 export const getStudentByName = async (req: Request, res: Response) =>{
     try{
         const { name } = req.query;
-        const student = await studentService.getStusentByName(String(name));
-        return res.status(200).json(student);
+        const user = req.user;
+        if (!user){
+            return res.status(401).json({message: "Unauthorized"});
+        }
+        let students;
+        if (user.role === "teacher"){
+            if (!user.className) {
+                return res.status(400).json({message: "Missing className"});
+            }
+            students = await studentService.getStudentByNameAndClass(
+                name as string,
+                user.className
+
+            );
+        } else {
+            students = await studentService.getStudentByName(name as string)
+        }
+        return res.status(200).json(students);
     } catch (error: any){
-        return res.status(404).json({
+        return res.status(500).json({
             message: error.message,
         });
     }
