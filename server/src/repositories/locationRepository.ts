@@ -10,25 +10,25 @@ interface SaveLocationData {
 
 export const saveOrUpdateLocation = async (data: SaveLocationData) => {
     return await LocationModel.findOneAndUpdate(
-        {
-            idNumber: data.idNumber,
-            type: data.type,
-        },
+        {idNumber: data.idNumber},
         data,
         {
             new: true,
             upsert: true,
         }
-  );
+    );
 };
 
-export const getAllStudentLocations = async () => {
-    return await LocationModel.find({ type: "student" });
+export const getAllLocations = async () => {
+    return await LocationModel.find();
 };
 
-export const getTeacherLocation = async (idNumber: string) => {
-    return await LocationModel.findOne({
-        idNumber,
-        type: "teacher",
+export const getLocationByIdNumber = async (idNumber: string) => {
+    return await LocationModel.findOne({ idNumber });
+};
+
+export const getLocationsByIdNumbers = async (idNumbers: string[]) => {
+    return await LocationModel.find({
+        idNumber: { $in: idNumbers },
     });
 };

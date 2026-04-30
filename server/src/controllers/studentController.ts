@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import * as studentService from "../services/studentService";
-import strict from "node:assert/strict";
 
 export const createStudent = async (req: Request, res: Response) => {
     try{

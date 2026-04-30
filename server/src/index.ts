@@ -5,6 +5,7 @@ import {connectDB} from "./db/connectDB";
 import studentRoutes from "./routes/studentRoutes";
 import teacherRoutes from "./routes/teacherRoutes";
 import authRotes from "./routes/authRoutes";
+import locationRoutes from "./routes/locationRoutes"
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/students", studentRoutes);
 app.use("/teachers", teacherRoutes)
 app.use("/auth", authRotes);
+app.use("/locations", locationRoutes);
 
 
 app.get("/", (req, res) => {
