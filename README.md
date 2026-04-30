@@ -39,3 +39,16 @@ npm run dev
 cd client
 npm install
 npm run dev
+
+```
+## Screenshots
+
+### Login
+![Login](./docs/images/login.png)
+
+### Dashboard
+![Manager Dashboard](./docs/images/manager%20dashboard.png)
+![Teacher Dashboard](./docs/images/teacher%20dashboard.png)
+
+### Map
+![Map](./docs/images/map.png)
