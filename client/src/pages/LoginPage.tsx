@@ -23,7 +23,7 @@ const LoginPage = () => {
             setIsLoading(true);
 
             const result = role === "manager" ? await managerLogin(username, password): await teacherLogin(username, password);
-            login(result.token, result.role, result.idNumber);
+            login(result.token, result.role, result.idNumber, result.className);
             if (result.role === "manager") {
                 navigate("/manager");
             } else {

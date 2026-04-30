@@ -24,3 +24,7 @@ export const getStudentByNameAndClass = async (name: string, className: string) 
         className: className,
   });
 };
+
+export const getAllStudents = async () => {
+    return StudentModel.find();
+};

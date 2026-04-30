@@ -36,3 +36,11 @@ export const getStudentByNameAndClass = async (name: string, className: string) 
     }
     return student;
 };
+
+export const getAllStudents = async () => {
+    const students =  studentRepository.getAllStudents();
+    if (!students){
+        throw new Error("Students not found");
+    }
+        return students;
+};

@@ -51,3 +51,12 @@ export const getStudentByName = async (req: Request, res: Response) =>{
         });
     }
 };
+
+export const getAllStudents = async (req: Request, res: Response) => {
+    try {
+        const students = await studentService.getAllStudents();
+        return res.status(200).json(students);
+    } catch (error: any) {
+        return res.status(500).json({ message: error.message });
+    }
+};

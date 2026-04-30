@@ -6,7 +6,8 @@ interface AuthContextType {
     token: string | null;
     role: UserRole | null;
     idNumber: string | null;
-    login: (token: string, role: UserRole, idNumber?: string) => void;
+    className: string | null;
+    login: (token: string, role: UserRole, idNumber?: string, className?: string) => void;
     logout: () => void;
 }
 
@@ -25,15 +26,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     });
     const [idNumber, setIdNumber] = useState<string | null>(() => {
         return localStorage.getItem("idNumber");
-    })
+    });
 
-    const login = (token: string, role: UserRole, idNumber?: string) => {
+    const [className, setClassName] = useState<string | null> (()=>
+        localStorage.getItem("className")
+    );
+
+    const login = (token: string, role: UserRole, idNumber?: string, className?: string) => {
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
 
         if (idNumber){
             localStorage.setItem("idNumber", idNumber);
             setIdNumber(idNumber);
+        } else {
+            localStorage.removeItem("idNumber");
+            setIdNumber(null);
+        }
+        if (className){
+            localStorage.setItem("className", className);
+            setClassName(className);
+        } else {
+            localStorage.removeItem("className");
+            setClassName(null);
         }
 
         setToken(token);
@@ -44,13 +59,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
         localStorage.removeItem("idNumber");
+        localStorage.removeItem("className");
 
         setToken(null);
         setRole(null);
         setIdNumber(null);
+        setClassName(null);
     };
     return(
-        <AuthContext.Provider value={{token, role, idNumber, login, logout}}>
+        <AuthContext.Provider value={{token, role, idNumber, className, login, logout}}>
             {children}
         </AuthContext.Provider>
     );

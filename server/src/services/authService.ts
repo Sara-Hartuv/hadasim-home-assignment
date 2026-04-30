@@ -36,6 +36,6 @@ export const loginTeacher = async (username: string, password: string) =>{
     }
 
     const token = createToken(user);
-    return {token, role: user.role, idNumber: user.idNumber,};
+    return {token, role: user.role, idNumber: user.idNumber, className : user.className,};
 
 };

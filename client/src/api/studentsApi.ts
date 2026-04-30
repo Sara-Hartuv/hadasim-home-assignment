@@ -12,6 +12,11 @@ export const searchStudentByName = async (name: string): Promise<Student[]> => {
 };
 
 export const createStudent = async (student: Omit<Student, "_id">): Promise<Student> => {
-    const response = await api.post<Student>("/student", student);
+    const response = await api.post<Student>("/students", student);
+    return response.data;
+};
+
+export const getAllStudents = async (): Promise<Student[]> => {
+    const response = await api.get<Student[]>("/students");
     return response.data;
 };
